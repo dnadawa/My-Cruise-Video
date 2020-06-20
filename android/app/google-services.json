@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "945938671811",
+    "firebase_url": "https://my-cruise-video.firebaseio.com",
+    "project_id": "my-cruise-video",
+    "storage_bucket": "my-cruise-video.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945938671811:android:5c9fbe7eabcf2ef7f25a76",
+        "android_client_info": {
+          "package_name": "com.digiwrecks.mycruisevideo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945938671811-h00f6s872kjhftcuec1gq90iem6kjkbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB67PBxW0bY4x5SydJAssf6FwbI9PL5SJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945938671811-h00f6s872kjhftcuec1gq90iem6kjkbr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
