@@ -9,6 +9,7 @@ import 'package:mycruisevideo/screens/checkout.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/custom-text.dart';
 import 'package:mycruisevideo/widgets/sample.dart';
+import 'package:mycruisevideo/widgets/toast.dart';
 import 'package:mycruisevideo/widgets/upload-widget.dart';
 
 import '../data.dart';
@@ -314,8 +315,21 @@ class _UploadState extends State<Upload> {
               child: Button(
                 text: 'Next',
                 onclick: (){
-                  Navigator.push(context, CupertinoPageRoute(builder: (context){
-                    return Checkout();}));
+                  if(data.intro==''&& data.bording==''&&data.pool==[]&&data.excursion==[]&&data.dining==[]&&data.casino==[]&&data.various==[]){
+                    ToastBar(text: 'Please upload image',color: Colors.red).show();
+                  }
+                  else{
+                    Navigator.push(context, CupertinoPageRoute(builder: (context){
+                      return Checkout(
+                        intro: data.intro,
+                        boarding: data.bording,
+                        pool: data.pool,
+                        exc: data.excursion,
+                        dining: data.dining,
+                        casino: data.casino,
+                        various: data.various,
+                      );}));
+                  }
                 },
                 color: Theme.of(context).primaryColor,
               ),

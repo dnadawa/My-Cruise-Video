@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:mycruisevideo/screens/instructions.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/input-field.dart';
 import 'package:mycruisevideo/widgets/toast.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatelessWidget {
@@ -15,23 +17,38 @@ class SignIn extends StatelessWidget {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   signInWithEmail(BuildContext context) async {
+    ProgressDialog pr = ProgressDialog(context);
+    pr = ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
+    pr.style(
+        message: 'Signing in...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: Center(child: CircularProgressIndicator()),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: ScreenUtil().setSp(35), fontWeight: FontWeight.bold)
+    );
     try{
+      await pr.show();
       AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
           email: email.text, password: password.text);
       FirebaseUser user = result.user;
       print(user.uid);
 
-//      var sub = await Firestore.instance.collection('users').where('email',isEqualTo: email.text).getDocuments();
-//      var logged = sub.documents;
+      var sub = await Firestore.instance.collection('users').where('email',isEqualTo: email.text).getDocuments();
+      var logged = sub.documents;
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('email', user.email);
-      //      prefs.setString('location', logged[0]['location']);
-      //      prefs.setString('name', logged[0]['fname']+' '+logged[0]['lname']);
+      prefs.setString('name', logged[0]['name']);
+      prefs.setString('phone', logged[0]['phone']);
+      await pr.hide();
       Navigator.pushReplacement(context, CupertinoPageRoute(builder: (context){
         return Instructions();}));
     }
     catch(E){
       print(E);
+      await pr.hide();
       ToastBar(color: Colors.red,text: 'Something went Wrong').show();
     }
   }

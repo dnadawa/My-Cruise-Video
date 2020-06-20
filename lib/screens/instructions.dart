@@ -7,6 +7,7 @@ import 'package:mycruisevideo/screens/upload.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/custom-text.dart';
 import 'package:mycruisevideo/widgets/toast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 class Instructions extends StatefulWidget {
   @override
   _InstructionsState createState() => _InstructionsState();
@@ -102,8 +103,11 @@ class _InstructionsState extends State<Instructions> {
                         child: Button(
                           color: Theme.of(context).primaryColor,
                           text: 'Confirm',
-                          onclick: (){
+                          onclick: () async {
                             if(selectedDate!=null){
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              prefs.setString('cruise', cruise);
+                              prefs.setString('departure', selectedDate);
                               Navigator.push(context, CupertinoPageRoute(builder: (context){
                                 return Upload();}));
                             }

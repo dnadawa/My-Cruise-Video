@@ -8,6 +8,7 @@ import 'package:mycruisevideo/screens/first-page.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/input-field.dart';
 import 'package:mycruisevideo/widgets/toast.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class SignUp extends StatelessWidget {
   TextEditingController name = TextEditingController();
@@ -20,9 +21,23 @@ class SignUp extends StatelessWidget {
   CollectionReference collectionReference = Firestore.instance.collection('users');
 
   signUp(BuildContext context) async {
+    ProgressDialog pr = ProgressDialog(context);
+    pr = ProgressDialog(context,type: ProgressDialogType.Normal, isDismissible: false, showLogs: false);
+    pr.style(
+        message: 'Signing up...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: Center(child: CircularProgressIndicator()),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: ScreenUtil().setSp(35), fontWeight: FontWeight.bold)
+    );
+
     if(email.text!='' && name.text!='' && phone.text!='' && password.text!='' && confirmPassword.text!=''){
       if(password.text == confirmPassword.text){
         try{
+          await pr.show();
           AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
               email: email.text, password: password.text);
           FirebaseUser user = result.user;
@@ -34,10 +49,12 @@ class SignUp extends StatelessWidget {
             'phone': phone.text,
           });
           ToastBar(color: Colors.green,text: 'Signed Up Successfully!').show();
+          await pr.hide();
           Navigator.push(context, CupertinoPageRoute(builder: (context){
             return FirstPage();}));
         }
         catch(E){
+          await pr.hide();
           ToastBar(color: Colors.red,text: 'Something Went Wrong!').show();
           print(E);
         }
