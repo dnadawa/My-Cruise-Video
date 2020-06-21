@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mycruisevideo/screens/image-view.dart';
 import 'package:mycruisevideo/screens/upload.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/custom-text.dart';
@@ -31,7 +32,7 @@ class _InstructionsState extends State<Instructions> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
-                      CustomText(text: 'Select Your Cruise',color: Colors.black,size: ScreenUtil().setSp(45),),
+                      CustomText(text: 'Select Your Cruise',color: Colors.black,size: ScreenUtil().setSp(45)),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: ScreenUtil().setHeight(20)),
                         child: Container(
@@ -179,32 +180,50 @@ class _InstructionsState extends State<Instructions> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        CustomText(text: 'OUR GOAL IS TO PROVIDE YOU WITH THE BEST PERSONAL VIDEO EXPERIENCE. PLEASE READ TIPS :',align: TextAlign.start,size: ScreenUtil().setSp(32),),
-                        SizedBox(height: ScreenUtil().setHeight(30),),
+                        CustomText(text: 'OUR GOAL IS TO PROVIDE YOU WITH THE BEST PERSONAL VIDEO EXPERIENCE. PLEASE READ TIPS :',align: TextAlign.start,size: ScreenUtil().setSp(35),font: 'GoogleSans',),
+                        SizedBox(height: ScreenUtil().setHeight(80),),
                         CustomText(text: '1. ALWAYS HOLD CAMERA SIDEWAYS.',align: TextAlign.start,isBold: false,size: ScreenUtil().setSp(30),),
-                        SizedBox(height: ScreenUtil().setHeight(20),),
+                        SizedBox(height: ScreenUtil().setHeight(40),),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
-                            Container(
-                              width: ScreenUtil().setWidth(200),
-                              height: ScreenUtil().setHeight(200),
-                              decoration: BoxDecoration(
-                                image: DecorationImage(image: AssetImage('images/sample1.jpg'),fit: BoxFit.fill),
-                                borderRadius: BorderRadius.circular(5)
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, CupertinoPageRoute(builder: (context){
+                                  return ImageView(image: 'sample1.jpg',);}));
+                              },
+                              child: Hero(
+                                tag: 'imagesample1.jpg',
+                                child: Container(
+                                  width: ScreenUtil().setWidth(200),
+                                  height: ScreenUtil().setHeight(200),
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(image: AssetImage('images/sample1.jpg'),fit: BoxFit.fill),
+                                    borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
                               ),
                             ),
-                            Container(
-                              width: ScreenUtil().setWidth(200),
-                              height: ScreenUtil().setHeight(200),
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(image: AssetImage('images/sample2.jpg'),fit: BoxFit.fill),
-                                  borderRadius: BorderRadius.circular(5)
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, CupertinoPageRoute(builder: (context){
+                                  return ImageView(image: 'sample2.jpg',);}));
+                              },
+                              child: Hero(
+                                tag: 'imagesample2.jpg',
+                                child: Container(
+                                  width: ScreenUtil().setWidth(200),
+                                  height: ScreenUtil().setHeight(200),
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(image: AssetImage('images/sample2.jpg'),fit: BoxFit.fill),
+                                      borderRadius: BorderRadius.circular(5)
+                                  ),
+                                ),
                               ),
                             )
                           ],
                         ),
-                        SizedBox(height: ScreenUtil().setHeight(20),),
+                        SizedBox(height: ScreenUtil().setHeight(40),),
                         CustomText(text: '2. REVIEW THE “SAMPLE” PHOTOS',align: TextAlign.start,isBold: false,size: ScreenUtil().setSp(30),),
                         SizedBox(height: ScreenUtil().setHeight(20),),
                         CustomText(text: '3. CONFIRM CORRECT PHOTO FOR EACH CATEGORY',align: TextAlign.start,isBold: false,size: ScreenUtil().setSp(30),),
@@ -220,7 +239,7 @@ class _InstructionsState extends State<Instructions> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(ScreenUtil().setHeight(40)),
+                padding: EdgeInsets.all(ScreenUtil().setHeight(20)),
                 child: Button(
                   text: 'Next',
                   color: Theme.of(context).primaryColor,

@@ -118,7 +118,7 @@ class SignIn extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.all(ScreenUtil().setHeight(50)),
                         child: Button(
-                          text: 'Submit',
+                          text: 'Sign in',
                           color: Theme.of(context).primaryColor,
                           onclick: ()=>signInWithEmail(context),
                         ),

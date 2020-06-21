@@ -85,7 +85,7 @@ class _CheckoutState extends State<Checkout> {
       });
       await pr.hide();
       Navigator.push(context, CupertinoPageRoute(builder: (context){
-        return Congratulations();}));
+        return Congratulations(orderId: code,);}));
     }
     catch(e){
       await pr.hide();
@@ -175,12 +175,13 @@ class _CheckoutState extends State<Checkout> {
                       child: Center(child: CustomText(text: 'AGREEMENT',color: Colors.black,size: ScreenUtil().setSp(45),)),
                     ),
                     Padding(
-                      padding:  EdgeInsets.all(ScreenUtil().setHeight(20)),
+                      padding:  EdgeInsets.all(ScreenUtil().setHeight(30)),
                       child: CustomText(
                         text: 'I, hereby grant permission to My Cruise Video to use or reproduce any portion of the photo images provided through the current app that have been taken by myself or someone I designated '
                             'for the purpose of a personalized video and or publications which can include but is not limited to, books, cards, calendars, invitations and websites without any more compensation or '
                             'recognition given to me. Furthermore, I grant creative permission to alter the photograph(s) or video’. I do not grant permission to resale or use the photographs in a manner that would '
                             'exploit or cause malicious representation toward me or my company and associates.',
+                        isBold: false,
                         align: TextAlign.left,
                         size: ScreenUtil().setSp(32),
                       ),

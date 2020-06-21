@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xff448AFF),
         accentColor: Color(0xff8044FF),
-        canvasColor: Color(0xff448AFF),
+        canvasColor: Color(0xff8044FF),
       ),
       debugShowCheckedModeBanner: false,
       home: FirstPage(),
