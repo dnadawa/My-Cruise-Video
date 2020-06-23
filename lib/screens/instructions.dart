@@ -28,7 +28,6 @@ class _InstructionsState extends State<Instructions> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               backgroundColor: Colors.white,
               content: Container(
-                height: ScreenUtil().setHeight(500),
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[

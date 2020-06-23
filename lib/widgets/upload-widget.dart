@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
@@ -22,8 +21,8 @@ class UploadWidget extends StatefulWidget {
 
 class _UploadWidgetState extends State<UploadWidget> {
   bool uploadComplete = false;
-
-
+  String fileUrl;
+  File file;
   sendData(String fileUrl){
     if(widget.type=='intro'){
       widget.data.setIntro(url: fileUrl);
@@ -54,7 +53,6 @@ class _UploadWidgetState extends State<UploadWidget> {
       onTap: () async {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         String email = prefs.getString('email');
-        File file;
         if(widget.type=='intro'){
           file = await FilePicker.getFile(type: FileType.custom,allowedExtensions: ['jpg','png','mp4']);
         }
@@ -77,11 +75,12 @@ class _UploadWidgetState extends State<UploadWidget> {
         );
 
         try{
+          //print(basename(file.path).substring(basename(file.path).length - 3));
           StorageReference ref = FirebaseStorage.instance.ref().child("${widget.type}/$email/${basename(file.path)}");
           await pr.show();
           StorageUploadTask uploadTask = ref.putFile(file);
           final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
-          String fileUrl = (await downloadUrl.ref.getDownloadURL());
+          fileUrl = (await downloadUrl.ref.getDownloadURL());
           await pr.hide();
           setState(() {
             uploadComplete = true;
@@ -104,7 +103,13 @@ class _UploadWidgetState extends State<UploadWidget> {
                 border: Border.all(color: Colors.black,width: 2),
                 color: Colors.white
             ),
-            child: Icon(!uploadComplete?Icons.cloud_upload:Icons.check_circle,size: ScreenUtil().setWidth(100),),
+            child: !uploadComplete?
+            Icon(Icons.cloud_upload,size: ScreenUtil().setWidth(100),):
+            ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: basename(file.path).substring(basename(file.path).length - 3)!='mp4'?Image.network(fileUrl,fit: BoxFit.fill,)
+                      :Icon(Icons.ondemand_video,size: ScreenUtil().setWidth(100),)
+            ),
           ),
           CustomText(text: 'Upload',color: Colors.black,)
         ],
