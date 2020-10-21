@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mycruisevideo/screens/checkout.dart';
 import 'package:mycruisevideo/widgets/button.dart';
 import 'package:mycruisevideo/widgets/custom-text.dart';
 import 'package:mycruisevideo/widgets/sample.dart';
@@ -320,15 +319,8 @@ class _UploadState extends State<Upload> {
                   }
                   else{
                     Navigator.push(context, CupertinoPageRoute(builder: (context){
-                      return Checkout(
-                        intro: data.intro,
-                        boarding: data.bording,
-                        pool: data.pool,
-                        exc: data.excursion,
-                        dining: data.dining,
-                        casino: data.casino,
-                        various: data.various,
-                      );}));
+
+                    }));
                   }
                 },
                 color: Theme.of(context).primaryColor,
